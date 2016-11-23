@@ -1,6 +1,6 @@
 FROM consul:0.7.1
 
-RUN apk add --no-cache nodejs \
+RUN apk add --no-cache nodejs jq \
   && npm install -g consul-to-json \
   && mkdir -p /consul/kv \
   && chown -R consul:consul /consul/kv
