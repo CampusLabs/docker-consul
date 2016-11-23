@@ -2,9 +2,14 @@
 
 $CONSUL_ENTRYPOINT "$@" &
 
-until $(curl --output /dev/null --silent --fail http://127.0.0.1:8500/v1/status/leader); do
+until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:8500/v1/health/service/consul); do
   sleep 1
 done
 
-$JSONCONSUL import $KV_SOURCE
+if [ -f $SNAPSHOT ]; then
+  consul snapshot restore $SNAPSHOT
+else
+  consul snapshot save $SNAPSHOT
+fi
+
 wait $!
