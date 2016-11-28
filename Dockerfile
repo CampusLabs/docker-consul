@@ -5,7 +5,7 @@ ENV JSONCONSUL_NAME=jsonconsul_${JSONCONSUL_VERSION}_linux_amd64
 
 WORKDIR /work
 
-RUN apk add --no-cache openssl \
+RUN apk add --no-cache openssl jq \
   && wget https://github.com/vsco/jsonconsul/releases/download/${JSONCONSUL_VERSION}/${JSONCONSUL_NAME}.tar.gz \
   && tar xzf $JSONCONSUL_NAME.tar.gz \
   && mv $JSONCONSUL_NAME/jsonconsul /usr/local/bin \
